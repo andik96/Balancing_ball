@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TODO.txt" />
+    <ClInclude Include="Ball.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Seesaw.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\BalanceControlPi\Dummy.cpp" />
+    <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Seesaw.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
