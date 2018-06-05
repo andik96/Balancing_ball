@@ -1,7 +1,7 @@
 
 /********************************
 #   Balancing Ball              #
-#   Ball.cpp                    #
+#   Beam.cpp                    #
 #                               #
 #   Authors:                    #
 #       KEMPERLE Andreas        #
@@ -17,8 +17,7 @@
 // ===============================================================
 // INCLUDES
 
-#include "Ball.h"
-#include <stdexcept>
+#include "Beam.h"
 
 
 // #################################### SECTION BREAK ####################################
@@ -27,14 +26,15 @@
 // ===============================================================
 // CONSTRUCTOR (and initialiser list)
 
-Ball::Ball(const double position, const double velocity) : 
-position_(position), velocity_(velocity)
-{}
+Beam::Beam(const double length, const double angle, const double ang_velocity) :
+length_(length), angle_(angle), ang_velocity_(ang_velocity)
+{
+}
 
 // ===============================================================
 // DEFAULT CONSTRUCTOR
 
-Ball::Ball() : position_(0), velocity_(0)
+Beam::Beam() : length_(2), angle_(0), ang_velocity_(0)
 {}
 
 
@@ -42,48 +42,51 @@ Ball::Ball() : position_(0), velocity_(0)
 
 
 // ===============================================================
-// GET CURRENT BALL POSITION
+// GET LENGHT OF BEAM
 
-double Ball::get_position() const
+double Beam::get_lenght() const
 {
-	return this->position_;
+	return this->length_;
 }
 
 // ===============================================================
-// SET CURRENT BALL POSITION
+// SET LENGHT OF BEAM
 
-void Ball::set_position(const double position)
+void Beam::set_lenght(const double lenght)
 {
-	this->position_ = position;
-}
-
-
-// ===============================================================
-// GET CURRENT BALL SPEED
-
-double Ball::get_velocity() const
-{
-	return this->velocity_;
-}
-
-// ===============================================================
-// SET CURRENT BALL SPEED
-
-void Ball::set_velocity(const double velocity)
-{
-	this->velocity_ = velocity;
+	this->length_ = lenght;
 }
 
 
 // ===============================================================
-// PUSH BALL LEFT/RIGHT
+// GET CURRENT BEAM ANGLE
 
-void Ball::push(const Push direction)
+double Beam::get_angle() const
 {
-	if(direction == Push::left)
-		this->velocity_ -= 0.5;
-	else if(direction == Push::right)
-		this->velocity_ += 0.5;
-	else
-		throw std::logic_error ("Only push ball left or right!");
+	return this->angle_;
+}
+
+// ===============================================================
+// SET CURRENT BEAM ANGLE
+
+void Beam::set_angle(const double angle)
+{
+	this->angle_ = angle;
+}
+
+
+// ===============================================================
+// GET CURRENT ANGULAR VELOCITY OF BEAM
+
+double Beam::get_ang_velocity() const
+{
+	return this->ang_velocity_;
+}
+
+// ===============================================================
+// SET CURRENT ANGULAR VELOCITY OF BEAM
+
+void Beam::set_ang_velocity(const double ang_velocity)
+{
+	this->ang_velocity_ = ang_velocity;
 }

@@ -1,7 +1,7 @@
 
 /********************************
 #   Balancing Ball              #
-#   Ball.h                      #
+#   Beam.h                      #
 #                               #
 #   Authors:                    #
 #       KEMPERLE Andreas        #
@@ -19,41 +19,42 @@
 // ===============================================================
 // INCLUDES
 
-#include "IBall.h"
+#include "IBeam.h"
 
 
 // #################################### SECTION BREAK ####################################
 
 
 // ===============================================================
-// BALL CLASS
+// BEAM CLASS
 
-class Ball : public IBall
+class Beam : public IBeam
 {
 public:
 
-	Ball();
-	Ball(double position, double velocity);
-	~Ball() = default;
+	Beam();
+	Beam(double length, double angle, double ang_velocity);
+	~Beam() = default;
 
 	// neither copy or move constructors or operators will be used
-	Ball(const Ball &other) = delete;
-	Ball(const Ball &&other) = delete;
-	Ball &operator = (const Ball& other) = delete;
-	Ball &&operator = (const Ball&& other) = delete;
+	Beam(const Beam &other) = delete;
+	Beam(const Beam &&other) = delete;
+	Beam &operator = (const Beam& other) = delete;
+	Beam &&operator = (const Beam&& other) = delete;
 
 	// --------- --------- --------- ---------
-	double get_position(void) const override;
-	void set_position(const double position) override;
+	double get_lenght(void) const override;
+	void set_lenght(const double lenght) override;
 	// --------- --------- --------- ---------
-	double get_velocity(void) const override;
-	void set_velocity(const double velocity) override;
+	double get_angle(void) const override;
+	void set_angle(const double angle) override;
 	// --------- --------- --------- ---------
-	void push(const Push direction) override;
+	double get_ang_velocity(void) const override;
+	void set_ang_velocity(const double ang_velocity) override;
 	// --------- --------- --------- ---------
 
 private:
-	double position_;
-	double velocity_;
+	double length_;
+	double angle_;
+	double ang_velocity_;
 };
-

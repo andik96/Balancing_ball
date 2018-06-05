@@ -1,7 +1,7 @@
 
 /********************************
 #   Balancing Ball              #
-#   Ball.h                      #
+#   IBall.h                     #
 #                               #
 #   Authors:                    #
 #       KEMPERLE Andreas        #
@@ -17,43 +17,33 @@
 
 
 // ===============================================================
-// INCLUDES
+// ENUM CLASS FOR PUSHING BALL
 
-#include "IBall.h"
+enum class Push
+{
+	left,
+	right
+};
 
 
 // #################################### SECTION BREAK ####################################
 
 
 // ===============================================================
-// BALL CLASS
+// INTERFACE FOR CLASS BALL
 
-class Ball : public IBall
+class IBall
 {
 public:
-
-	Ball();
-	Ball(double position, double velocity);
-	~Ball() = default;
-
-	// neither copy or move constructors or operators will be used
-	Ball(const Ball &other) = delete;
-	Ball(const Ball &&other) = delete;
-	Ball &operator = (const Ball& other) = delete;
-	Ball &&operator = (const Ball&& other) = delete;
-
 	// --------- --------- --------- ---------
-	double get_position(void) const override;
-	void set_position(const double position) override;
+	virtual double get_position(void) const = 0;
+	virtual void set_position(const double position) = 0;
 	// --------- --------- --------- ---------
-	double get_velocity(void) const override;
-	void set_velocity(const double velocity) override;
+	virtual double get_velocity(void) const = 0;
+	virtual void set_velocity(const double velocity) = 0;
 	// --------- --------- --------- ---------
-	void push(const Push direction) override;
+	virtual void push(const Push direction) = 0;
 	// --------- --------- --------- ---------
 
-private:
-	double position_;
-	double velocity_;
+	virtual ~IBall() = 0;
 };
-

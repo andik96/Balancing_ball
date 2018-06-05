@@ -1,7 +1,7 @@
 
 /********************************
 #   Balancing Ball              #
-#   Ball.h                      #
+#   IBeam.h                     #
 #                               #
 #   Authors:                    #
 #       KEMPERLE Andreas        #
@@ -16,44 +16,25 @@
 #pragma once
 
 
-// ===============================================================
-// INCLUDES
-
-#include "IBall.h"
-
-
 // #################################### SECTION BREAK ####################################
 
 
 // ===============================================================
-// BALL CLASS
+// INTERFACE FOR CLASS BEAM
 
-class Ball : public IBall
+class IBeam
 {
 public:
-
-	Ball();
-	Ball(double position, double velocity);
-	~Ball() = default;
-
-	// neither copy or move constructors or operators will be used
-	Ball(const Ball &other) = delete;
-	Ball(const Ball &&other) = delete;
-	Ball &operator = (const Ball& other) = delete;
-	Ball &&operator = (const Ball&& other) = delete;
-
 	// --------- --------- --------- ---------
-	double get_position(void) const override;
-	void set_position(const double position) override;
+	virtual double get_lenght(void) const = 0;
+	virtual void set_lenght(const double lenght) = 0;
 	// --------- --------- --------- ---------
-	double get_velocity(void) const override;
-	void set_velocity(const double velocity) override;
+	virtual double get_angle(void) const = 0;
+	virtual void set_angle(const double angle) = 0;
 	// --------- --------- --------- ---------
-	void push(const Push direction) override;
+	virtual double get_ang_velocity(void) const = 0;
+	virtual void set_ang_velocity(const double ang_velocity) = 0;
 	// --------- --------- --------- ---------
 
-private:
-	double position_;
-	double velocity_;
+	virtual ~IBeam() = 0;
 };
-

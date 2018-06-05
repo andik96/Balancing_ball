@@ -18,10 +18,16 @@
     <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Seesaw.h">
+    <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
+    <ClInclude Include="Beam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IBeam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IBall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,10 +35,16 @@
     <ClCompile Include="Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Seesaw.cpp">
+    <ClCompile Include="Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="Beam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IBeam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IBall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
