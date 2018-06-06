@@ -121,7 +121,7 @@ namespace test_ball
 		{
 			Ball test_ball;
 
-			Assert::ExpectException<std::logic_error>([](){Ball test_ball; test_ball.push(static_cast<Push>(3));});
+			Assert::ExpectException<std::logic_error>([](){Ball test_ball; test_ball.push(static_cast<Push>(3), 0.5);});
 		}
 	};
 

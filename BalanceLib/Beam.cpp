@@ -43,14 +43,6 @@ double Beam::get_lenght() const
 	return this->length_;
 }
 
-// ===============================================================
-// SET LENGHT OF BEAM
-
-void Beam::set_lenght(const double lenght)
-{
-	this->length_ = lenght;
-}
-
 
 // ===============================================================
 // GET CURRENT BEAM ANGLE
