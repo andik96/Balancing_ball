@@ -24,7 +24,7 @@
 // ===============================================================
 // INCLUDES
 
-constexpr double max_ang_velocity = 45/1000;		// maximum agular velocity in deg/ms
+constexpr double max_ang_velocity = double(45)/1000;		// maximum agular velocity in deg/ms
 
 
 // #################################### SECTION BREAK ####################################
