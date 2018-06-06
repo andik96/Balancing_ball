@@ -34,7 +34,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 // ===============================================================
 // NAMESPACE FOR ALL BALL TESTS
 
-namespace test_ball
+namespace ball_test
 {		
 	TEST_CLASS(test_default_constructor)
 	{
@@ -74,7 +74,7 @@ namespace test_ball
 
 	TEST_CLASS(test_velocity)
 	{
-		
+	public:	
 		TEST_METHOD(test_negative_velocity)
 		{
 			Ball test_ball;
@@ -95,49 +95,51 @@ namespace test_ball
 
 	TEST_CLASS(test_push)
 	{
+	public:
 		TEST_METHOD(test_push_left)
 		{
 			Ball test_ball;
 
-			test_ball.push(Push::left);
-			Assert::AreEqual(static_cast<double>(-0.5), test_ball.get_velocity());
+			test_ball.push(Push::left, 0.7);
+			Assert::AreEqual(static_cast<double>(-0.7), test_ball.get_velocity());
 
-			test_ball.push(Push::left);
-			Assert::AreEqual(static_cast<double>(-1), test_ball.get_velocity());
+			test_ball.push(Push::left, 0.4);
+			Assert::AreEqual(static_cast<double>(-1.1), test_ball.get_velocity());
 		}
 
 		TEST_METHOD(test_push_right)
 		{
 			Ball test_ball;
 
-			test_ball.push(Push::right);
-			Assert::AreEqual(static_cast<double>(0.5), test_ball.get_velocity());
+			test_ball.push(Push::right, 0.9);
+			Assert::AreEqual(static_cast<double>(0.9), test_ball.get_velocity());
 			
-			test_ball.push(Push::right);
-			Assert::AreEqual(static_cast<double>(1), test_ball.get_velocity());
+			test_ball.push(Push::right, 0.3);
+			Assert::AreEqual(static_cast<double>(1.2), test_ball.get_velocity());
 		}
 
 		TEST_METHOD(test_push_not_defined_direction)
 		{
 			Ball test_ball;
 
-			Assert::ExpectException<std::logic_error>([](){Ball test_ball; test_ball.push(static_cast<Push>(3));});
+			Assert::ExpectException<std::logic_error>([](){Ball test_ball; test_ball.push(static_cast<Push>(3), 0.5);});
 		}
 	};
 
 
 	TEST_CLASS(test_velocity_and_push)
 	{
+	public:
 		TEST_METHOD(test_push_against_velocity)
 		{
 			Ball test_ball;
 
 			test_ball.set_velocity(0.2);
-			test_ball.push(Push::left);
+			test_ball.push(Push::left, 0.5);
 			Assert::AreEqual(static_cast<double>(-0.3), test_ball.get_velocity());
 
 			test_ball.set_velocity(-0.3);
-			test_ball.push(Push::right);
+			test_ball.push(Push::right, 0.5);
 			Assert::AreEqual(static_cast<double>(0.2), test_ball.get_velocity());
 		}
 
@@ -146,11 +148,11 @@ namespace test_ball
 			Ball test_ball;
 
 			test_ball.set_velocity(-0.3);
-			test_ball.push(Push::left);
+			test_ball.push(Push::left, 0.5);
 			Assert::AreEqual(static_cast<double>(-0.8), test_ball.get_velocity());
 
 			test_ball.set_velocity(0.2);
-			test_ball.push(Push::right);
+			test_ball.push(Push::right, 0.5);
 			Assert::AreEqual(static_cast<double>(0.7), test_ball.get_velocity());
 		}
 	};
