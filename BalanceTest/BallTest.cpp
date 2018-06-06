@@ -34,7 +34,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 // ===============================================================
 // NAMESPACE FOR ALL BALL TESTS
 
-namespace test_ball
+namespace ball_test
 {		
 	TEST_CLASS(test_default_constructor)
 	{
@@ -74,7 +74,7 @@ namespace test_ball
 
 	TEST_CLASS(test_velocity)
 	{
-		
+	public:	
 		TEST_METHOD(test_negative_velocity)
 		{
 			Ball test_ball;
@@ -95,6 +95,7 @@ namespace test_ball
 
 	TEST_CLASS(test_push)
 	{
+	public:
 		TEST_METHOD(test_push_left)
 		{
 			Ball test_ball;
@@ -128,6 +129,7 @@ namespace test_ball
 
 	TEST_CLASS(test_velocity_and_push)
 	{
+	public:
 		TEST_METHOD(test_push_against_velocity)
 		{
 			Ball test_ball;
