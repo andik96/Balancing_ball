@@ -24,7 +24,8 @@
 // ===============================================================
 // INCLUDES
 
-constexpr double max_ang_velocity = double(45)/1000;		// maximum agular velocity in deg/ms
+constexpr double max_ang_velocity = double(45)/1000;		// maximum agular velocity in degrees per millisecond (/1000: milliseconds->seconds)
+constexpr double max_angle = 22.5;							// maximum angle in degrees
 
 
 // #################################### SECTION BREAK ####################################
@@ -64,10 +65,15 @@ double Beam::get_angle() const
 
 void Beam::set_angle(const double angle, const elapsed time_elapsed)
 {
-	if(time_elapsed > 0)
+	// --- CALCULATE ANGULAR VELOCITY ---
+
+	if(time_elapsed > 0)													// valid time change
 		this->ang_velocity_ = (angle - this->angle_)/time_elapsed;
 	else
 		throw std::runtime_error("Invalid elapsed time!");
+
+
+	// --- ANGULAR VELOCITY LIMIT ---
 
 	if(this->ang_velocity_ < max_ang_velocity && this->ang_velocity_ > -max_ang_velocity)		// angle velocity in possible range
 		this->angle_ = angle; 
@@ -75,4 +81,12 @@ void Beam::set_angle(const double angle, const elapsed time_elapsed)
 		this->angle_ = this->angle_ + max_ang_velocity*time_elapsed;
 	else																	// angular velocity is negative
 		this->angle_ = this->angle_ - max_ang_velocity*time_elapsed;
+
+
+	// --- ANGULAR LIMIT ---
+
+	if(this->angle_ > max_angle)
+		this->angle_ = max_angle;
+	else if(this->angle_ < -max_angle)
+		this->angle_ = -max_angle;
 }
