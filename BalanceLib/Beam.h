@@ -16,41 +16,26 @@
 #pragma once
 
 
-// ===============================================================
-// INCLUDES
-
-#include "IBeam.h"
-
-
 // #################################### SECTION BREAK ####################################
 
 
 // ===============================================================
 // BEAM CLASS
 
-class Beam : public IBeam
+class Beam
 {
 public:
 
-	Beam();
-	Beam(double length, double angle, double ang_velocity);
-	~Beam() = default;
-
-	// neither copy or move constructors or operators will be used
-	Beam(const Beam &other) = delete;
-	Beam(const Beam &&other) = delete;
-	Beam &operator = (const Beam& other) = delete;
-	Beam &&operator = (const Beam&& other) = delete;
+	Beam(double length = 2, double angle = 0, double ang_velocity = 0);
 
 	// --------- --------- --------- ---------
-	double get_lenght(void) const override;
-	void set_lenght(const double lenght) override;
+	double get_lenght(void) const;
 	// --------- --------- --------- ---------
-	double get_angle(void) const override;
-	void set_angle(const double angle) override;
+	double get_angle(void) const;
+	void set_angle(const double angle);
 	// --------- --------- --------- ---------
-	double get_ang_velocity(void) const override;
-	void set_ang_velocity(const double ang_velocity) override;
+	double get_ang_velocity(void) const;
+	void set_ang_velocity(const double ang_velocity);
 	// --------- --------- --------- ---------
 
 private:

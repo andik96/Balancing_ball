@@ -22,15 +22,11 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Beam.h" />
-    <ClInclude Include="IBall.h" />
-    <ClInclude Include="IBeam.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Beam.cpp" />
-    <ClCompile Include="IBall.cpp" />
-    <ClCompile Include="IBeam.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

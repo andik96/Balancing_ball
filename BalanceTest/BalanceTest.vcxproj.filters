@@ -29,6 +29,9 @@
     <ClCompile Include="BallTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BeamTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ControllerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
