@@ -22,6 +22,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Beam.h" />
+    <ClInclude Include="using_types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
