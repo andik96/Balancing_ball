@@ -39,7 +39,7 @@ namespace TestController
 		TEST_METHOD(Test_control) //testing function control()
 		{
 			Ball ball;
-			Beam beam;
+			Beam beam(2,0,0);
 			Controller c(ball, beam, 1, 2, 3);
 
 			c.ball.set_position(-1);
@@ -52,7 +52,7 @@ namespace TestController
 		TEST_METHOD(Test_update) //testing function update()
 		{
 			Ball ball;
-			Beam beam;
+			Beam beam(2, 0, 0);
 			Controller c(ball, beam, 1, 2, 3);
 			
 			//beam tilted to the right
