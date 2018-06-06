@@ -31,12 +31,6 @@ length_(length), angle_(angle), ang_velocity_(ang_velocity)
 {
 }
 
-// ===============================================================
-// DEFAULT CONSTRUCTOR
-
-Beam::Beam() : length_(2), angle_(0), ang_velocity_(0)
-{}
-
 
 // #################################### SECTION BREAK ####################################
 
