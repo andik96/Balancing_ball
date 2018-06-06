@@ -10,10 +10,17 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/05         #
-#   Version: 2018/06/05 - V1.0  #
+#   Version: 2018/06/06 - V1.1  #
 ********************************/
 
 #pragma once
+
+
+// ===============================================================
+// INCLUDES
+
+#include "using_types.h"
+
 
 
 // #################################### SECTION BREAK ####################################
@@ -25,17 +32,13 @@
 class Beam
 {
 public:
-
 	Beam(double length = 2, double angle = 0, double ang_velocity = 0);
 
 	// --------- --------- --------- ---------
 	double get_lenght(void) const;
 	// --------- --------- --------- ---------
 	double get_angle(void) const;
-	void set_angle(const double angle);
-	// --------- --------- --------- ---------
-	double get_ang_velocity(void) const;
-	void set_ang_velocity(const double ang_velocity);
+	void set_angle(const double angle, const elapsed time_elapsed);
 	// --------- --------- --------- ---------
 
 private:

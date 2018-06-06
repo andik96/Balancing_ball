@@ -46,7 +46,6 @@ namespace beam_test
 
 			Assert::AreEqual(static_cast<double>(2), test_beam.get_lenght());
 			Assert::AreEqual(static_cast<double>(0), test_beam.get_angle());
-			Assert::AreEqual(static_cast<double>(0), test_beam.get_ang_velocity());
 		}
 	};
 
@@ -59,16 +58,16 @@ namespace beam_test
 		{
 			Beam test_beam;
 
-			test_beam.set_angle(17.3);
-			Assert::AreEqual(static_cast<double>(17.3), test_beam.get_angle());
+			test_beam.set_angle(17.9, 1000);
+			Assert::AreEqual(static_cast<double>(17.9), test_beam.get_angle());
 		}
 
 		TEST_METHOD(test_negative_angle)
 		{
 			Beam test_beam;
 
-			test_beam.set_angle(-3.8);
-			Assert::AreEqual(static_cast<double>(-3.8), test_beam.get_angle());
+			test_beam.set_angle(-11.2, 1000);
+			Assert::AreEqual(static_cast<double>(-11.2), test_beam.get_angle());
 		}
 	};
 
@@ -81,16 +80,16 @@ namespace beam_test
 		{
 			Beam test_beam;
 
-			test_beam.set_ang_velocity(-0.7);
-			Assert::AreEqual(static_cast<double>(-0.7), test_beam.get_ang_velocity());
+			test_beam.set_angle(-50.8, 1000);
+			Assert::AreEqual(static_cast<double>(-45), test_beam.get_angle());	// maximum value: 45°/s
 		}
 
 		TEST_METHOD(test_positive_velocity)
 		{
 			Beam test_beam;
 
-			test_beam.set_ang_velocity(0.9);
-			Assert::AreEqual(static_cast<double>(0.9), test_beam.get_ang_velocity());
+			test_beam.set_angle(61.9, 1000);
+			Assert::AreEqual(static_cast<double>(45), test_beam.get_angle());	// maximum value: 45°/s
 		}
 	};
 
