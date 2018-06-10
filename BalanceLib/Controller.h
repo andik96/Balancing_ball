@@ -8,7 +8,8 @@ class Controller
 {
 public:
 	Controller(Ball ball, Beam beam, double kp, double ki, double kd);
-
+	double control(double position);
+	void update(double angle, elapsed time_passed);
 
 private:
 	Ball ball_();
@@ -17,6 +18,6 @@ private:
 	double ki_;
 	double kd_;
 	double desired_position_;
-	uint_fast64_t time_passed_; //TODO: Datentyp!!!
+	elapsed time_passed_;
 };
 
