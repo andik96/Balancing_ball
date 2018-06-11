@@ -22,12 +22,14 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Beam.h" />
+    <ClInclude Include="Pid_optimizer.h" />
     <ClInclude Include="using_types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Beam.cpp" />
+    <ClCompile Include="Pid_optimizer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
