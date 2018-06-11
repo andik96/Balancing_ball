@@ -1,7 +1,7 @@
 
 /********************************
 #   Balancing Ball              #
-#   IBeam.cpp                   #
+#   using_types.h               #
 #                               #
 #   Authors:                    #
 #       KEMPERLE Andreas        #
@@ -9,23 +9,20 @@
 #       SOUKUP   Jakob          #
 #       WINKLER  Andreas        #
 #                               #
-#   created: 2018/06/05         #
-#   Version: 2018/06/06 - V1.1  #
+#   created: 2018/06/06         #
+#   Version: 2018/06/06 - V1.0  #
 ********************************/
+
+#pragma once
 
 
 // ===============================================================
 // INCLUDES
 
-#include "IBeam.h"
-
-
-// #################################### SECTION BREAK ####################################
+#include <chrono>
 
 
 // ===============================================================
-// DESTRUCTOR
+// TYPE DECLARATION
 
-IBeam::~IBeam()
-{
-}
+using elapsed = uint_fast64_t;

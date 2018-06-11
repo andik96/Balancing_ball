@@ -10,7 +10,7 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/05         #
-#   Version: 2018/06/05 - V1.0  #
+#   Version: 2018/06/06 - V1.1  #
 ********************************/
 
 #pragma once
@@ -19,7 +19,8 @@
 // ===============================================================
 // INCLUDES
 
-#include "IBeam.h"
+#include "using_types.h"
+
 
 
 // #################################### SECTION BREAK ####################################
@@ -28,29 +29,16 @@
 // ===============================================================
 // BEAM CLASS
 
-class Beam : public IBeam
+class Beam
 {
 public:
-
-	Beam();
-	Beam(double length, double angle, double ang_velocity);
-	~Beam() = default;
-
-	// neither copy or move constructors or operators will be used
-	Beam(const Beam &other) = delete;
-	Beam(const Beam &&other) = delete;
-	Beam &operator = (const Beam& other) = delete;
-	Beam &&operator = (const Beam&& other) = delete;
+	Beam(double length = 2, double angle = 0, double ang_velocity = 0);
 
 	// --------- --------- --------- ---------
-	double get_lenght(void) const override;
-	void set_lenght(const double lenght) override;
+	double get_lenght(void) const;
 	// --------- --------- --------- ---------
-	double get_angle(void) const override;
-	void set_angle(const double angle) override;
-	// --------- --------- --------- ---------
-	double get_ang_velocity(void) const override;
-	void set_ang_velocity(const double ang_velocity) override;
+	double get_angle(void) const;
+	void set_angle(const double angle, const elapsed time_elapsed);
 	// --------- --------- --------- ---------
 
 private:

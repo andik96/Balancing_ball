@@ -10,16 +10,20 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/05         #
-#   Version: 2018/06/05 - V1.0  #
+#   Version: 2018/06/06 - V1.1  #
 ********************************/
 
 #pragma once
 
 
 // ===============================================================
-// INCLUDES
+// ENUM CLASS FOR PUSHING BALL
 
-#include "IBall.h"
+enum class Push
+{
+	left,
+	right
+};
 
 
 // #################################### SECTION BREAK ####################################
@@ -28,28 +32,20 @@
 // ===============================================================
 // BALL CLASS
 
-class Ball : public IBall
+class Ball
 {
 public:
 
-	Ball();
-	Ball(double position, double velocity);
-	~Ball() = default;
-
-	// neither copy or move constructors or operators will be used
-	Ball(const Ball &other) = delete;
-	Ball(const Ball &&other) = delete;
-	Ball &operator = (const Ball& other) = delete;
-	Ball &&operator = (const Ball&& other) = delete;
+	Ball(double position = 0, double velocity = 0);
 
 	// --------- --------- --------- ---------
-	double get_position(void) const override;
-	void set_position(const double position) override;
+	double get_position(void) const;
+	void set_position(const double position);
 	// --------- --------- --------- ---------
-	double get_velocity(void) const override;
-	void set_velocity(const double velocity) override;
+	double get_velocity(void) const;
+	void set_velocity(const double velocity);
 	// --------- --------- --------- ---------
-	void push(const Push direction) override;
+	void push(const Push direction, const double velocity);
 	// --------- --------- --------- ---------
 
 private:
