@@ -25,11 +25,11 @@
 
 // ===============================================================
 // RUN OPTIMIZER
-
-void Pid_optimizer::run(Pid_controller& my_controller)
-{
-	// TODO: PUT OPTIMIZER CODE HERE
-}
+//
+//void Pid_optimizer::run(Pid_controller& my_controller)
+//{
+//	// TODO: PUT OPTIMIZER CODE HERE
+//}
 
 
 //struct Pid Pid_optimizer::get_optimum()
