@@ -18,17 +18,19 @@
 // ===============================================================
 // INCLUDES
 
-//#include "Pid_controller.h"
+#include "Controller.h"
 
 
 // ===============================================================
 // PID STRUCT
 
-struct Pid
+struct Pid_data
 {
 	double kp_ = 1;
 	double ki_ = 0;
 	double kd_ = 0;
+
+	double error = 0;
 };
 
 
@@ -37,15 +39,16 @@ struct Pid
 
 // ===============================================================
 // PID OPTIMIZER CLASS
-//
-//class Pid_optimizer
-//{
-//public:
-//	void run(Pid_controller& my_controller);
-//	// struct Pid get_optimum();
-//
-//private:
-//	// Pid pid_opt_data_;
-//	Pid_controller& my_controller;
-//};
+
+class Pid_optimizer
+{
+public:
+	void run(Controller& my_controller);
+	Pid_data get_optimum();
+
+private:
+	Pid_data actual_pid_data_;
+	Pid_data optimal_pid_data_;
+	Controller& my_controller_;
+};
 
