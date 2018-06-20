@@ -15,19 +15,7 @@
 
 #pragma once
 
-
-// ===============================================================
-// ENUM CLASS FOR PUSHING BALL
-
-enum class Push
-{
-	left,
-	right
-};
-
-
-// #################################### SECTION BREAK ####################################
-
+#include "Enums.h"
 
 // ===============================================================
 // BALL CLASS
@@ -35,18 +23,13 @@ enum class Push
 class Ball
 {
 public:
-
-	Ball(double position = 0, double velocity = 0);
-
-	// --------- --------- --------- ---------
+	Ball();
+	
 	double get_position(void) const;
-	void set_position(const double position);
-	// --------- --------- --------- ---------
+	void set_position(double position);
 	double get_velocity(void) const;
-	void set_velocity(const double velocity);
-	// --------- --------- --------- ---------
-	void push(const Push direction, const double velocity);
-	// --------- --------- --------- ---------
+	void set_velocity(double velocity);
+	void push(Push direction, double velocity);
 
 private:
 	double position_;
