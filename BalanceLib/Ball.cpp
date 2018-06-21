@@ -13,36 +13,71 @@
 #   Version: 2018/06/05 - V1.0  #
 ********************************/
 
+
+// ===============================================================
+// INCLUDES
+
 #include "Ball.h"
+#include <stdexcept>
 
-Ball::Ball():position_{0},velocity_{0}
+
+// #################################### SECTION BREAK ####################################
+
+
+// ===============================================================
+// CONSTRUCTOR (and initialiser list)
+
+Ball::Ball(const double position, const double velocity) : 
+position_(position), velocity_(velocity)
+{}
+
+
+// #################################### SECTION BREAK ####################################
+
+
+// ===============================================================
+// GET CURRENT BALL POSITION
+
+double Ball::get_position() const
 {
+	return this->position_;
 }
 
-double Ball::get_position(void) const
+// ===============================================================
+// SET CURRENT BALL POSITION
+
+void Ball::set_position(const double position)
 {
-	return position_;
+	this->position_ = position;
 }
 
-void Ball::set_position(double position)
+
+// ===============================================================
+// GET CURRENT BALL SPEED
+
+double Ball::get_velocity() const
 {
-	position_ = position;
+	return this->velocity_;
 }
 
-double Ball::get_velocity(void) const
+// ===============================================================
+// SET CURRENT BALL SPEED
+
+void Ball::set_velocity(const double velocity)
 {
-	return velocity_;
+	this->velocity_ = velocity;
 }
 
-void Ball::set_velocity(double velocity)
-{
-	velocity_ = velocity;
-}
 
-void Ball::push(Push direction, double velocity)
+// ===============================================================
+// PUSH BALL LEFT/RIGHT
+
+void Ball::push(const Push direction, const double velocity)
 {
-	if (direction == Push::left)
-		velocity_ -= velocity;
-	if (direction == Push::right)
-		velocity_ += velocity;
+	if(direction == Push::left)
+		this->velocity_ -= velocity;
+	else if(direction == Push::right)
+		this->velocity_ += velocity;
+	else
+		throw std::logic_error ("Only push ball left or right!");
 }
