@@ -26,3 +26,5 @@
 // TYPE DECLARATION
 
 using elapsed = uint_fast64_t;
+
+using steps = uint_fast16_t;

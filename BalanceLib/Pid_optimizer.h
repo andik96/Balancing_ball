@@ -19,18 +19,34 @@
 // INCLUDES
 
 #include "Controller.h"
+#include "using_types.h"
+
+
+// ===============================================================
+// CONSTANT EXPRESSIONS
+
+constexpr elapsed watch_time = 10000;		// how long the optimizer shall test every p, i and d combination (in ms)
 
 
 // ===============================================================
 // PID STRUCT
 
-struct Pid_data
+struct Pid
 {
-	double kp_ = 1;
-	double ki_ = 0;
-	double kd_ = 0;
+	double kp = 1;
+	double ki = 0;
+	double kd = 0;
 
 	double error = 0;
+};
+
+struct Optimizer
+{
+	double kp_start = 1;
+	double ki_start = 0.1;
+	double kd_start = 0.05;
+
+	steps k_steps = 10;
 };
 
 
@@ -43,12 +59,14 @@ struct Pid_data
 class Pid_optimizer
 {
 public:
-	void run(Controller& my_controller);
-	Pid_data get_optimum();
+	void run(Controller& my_controller, Optimizer& optimizer_data);
+	Pid get_optimum() const;
 
 private:
-	Pid_data actual_pid_data_;
-	Pid_data optimal_pid_data_;
-	Controller& my_controller_;
+	double watch_error(Controller& my_controller);
+
+	Pid actual_pid_;
+	Pid optimal_pid_;
+
 };
 
