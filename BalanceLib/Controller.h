@@ -15,7 +15,7 @@ public:
 	double get_ki() const;
 	void set_ki(double ki);
 	double get_kd() const;
-	void set_kd(double ki);
+	void set_kd(double kd);
 
 	Ball ball_;
 	Beam beam_;
