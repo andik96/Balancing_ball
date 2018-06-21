@@ -67,15 +67,15 @@ namespace TestController
 			Controller c(ball, beam, 1, 2, 3);
 			
 			//beam tilted to the right
-			c.update(20,50);
+			c.update(20);
 			Assert::IsTrue(c.ball_.get_velocity() > 0);
-			c.update(20,50);
+			c.update(20);
 			Assert::IsTrue(c.ball_.get_position() > 0);
 
 			//beam tilted to the left
-			c.update(-20, 50);
+			c.update(-20);
 			Assert::IsTrue(c.ball_.get_velocity() < 0);
-			c.update(-20, 50);
+			c.update(-20);
 			Assert::IsTrue(c.ball_.get_position() < 0);
 		}
 	};

@@ -8,17 +8,32 @@ Controller::Controller(Ball ball, Beam beam, double kp, double ki, double kd) : 
 double Controller::control(double position)
 {
 	static constexpr elapsed simulated_time = 10;
-	time_passed_ = simulated_time;
+
+	elapsed time_passed = simulated_time;
 	static double e_sum = 0;
 	static double e_old = 0;
 
 	double e = desired_position_ - position;
 	e_sum = e_sum + e;
 
-	double desired_angle = kp_ * e + ki_ * time_passed_ * e_sum + kd_ * (e - e_old) / time_passed_;
+	double desired_angle = kp_ * e + ki_ * time_passed * e_sum + kd_ * (e - e_old) / time_passed;
 	e_old = e;
 
 	return desired_angle;
+}
+
+void Controller::update(double desired_angle)  
+{
+	static constexpr elapsed simulated_time = 10;
+
+	elapsed time_passed = simulated_time;
+
+	beam_.set_angle(desired_angle, time_passed);
+
+	static constexpr double g = 9.80665;
+	static constexpr double pi = 3.14159265;
+	double velocity_calc = g * sin(beam_.get_angle()*pi/180) * time_passed;
+	ball_.set_velocity(velocity_calc + ball_.get_velocity());
 }
 
 double Controller::get_kp() const
