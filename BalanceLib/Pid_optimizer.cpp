@@ -28,9 +28,6 @@
 
 void Pid_optimizer::run(Controller& my_controller, Optimizer& optimizer_data)
 {
-	double max_error = 0;
-	double sum_error = 0;
-
 	// ========= INITIALIZE P, I, D =========
 	actual_pid_.kp = optimizer_data.kp_start;
 	actual_pid_.ki = optimizer_data.ki_start;
@@ -104,6 +101,8 @@ void Pid_optimizer::run(Controller& my_controller, Optimizer& optimizer_data)
 	}
 }
 
+// ===============================================================
+// GET OPTIMUM (get stored optimum without running optimizer again)
 
 Pid Pid_optimizer::get_optimum() const
 {
@@ -111,26 +110,24 @@ Pid Pid_optimizer::get_optimum() const
 }
 
 
+// ===============================================================
+// WATCH ERROR (to be able to compare the affects of differen P, I and D values)
 
-
-double Pid_optimizer::watch_error(Controller& my_controller)
+double Pid_optimizer::watch_error(Controller& my_controller) const
 {
-	double act_error = 0;
+	double current_error = 0;
 	double max_error = 0;
 	double sum_error = 0;
-	double relative_error = 0;
 
 	for (elapsed time = 0; time < watch_time; time += time_elapsed)
 	{
-		act_error = my_controller.run();
+		current_error = my_controller.run();
 
-		if(act_error > max_error)
-			max_error = act_error;
+		if(current_error > max_error)
+			max_error = current_error;
 
-		sum_error += abs(act_error);
+		sum_error += abs(current_error);
 	}
 
-	relative_error = sum_error / (max_error*watch_time);
-
-	return relative_error;
+	return sum_error / (max_error*watch_time);
 }

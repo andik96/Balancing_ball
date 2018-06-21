@@ -60,11 +60,12 @@ class Pid_optimizer
 {
 public:
 	void run(Controller& my_controller, Optimizer& optimizer_data);
+	// ------------ ------------ ------------
 	Pid get_optimum() const;
 
 private:
-	double watch_error(Controller& my_controller);
-
+	double watch_error(Controller& my_controller) const;
+	// ============ ============ ============
 	Pid actual_pid_;
 	Pid optimal_pid_;
 
