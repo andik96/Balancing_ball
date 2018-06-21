@@ -54,10 +54,10 @@ namespace TestController
 			Controller c(ball, beam, 1, 2, 3);
 
 			c.ball_.set_position(-1);
-			Assert::IsTrue(c.control(c.ball_.get_position()) > 0);
+			Assert::IsTrue(c.control(c.beam_.get_angle()) > 0);
 
 			c.ball_.set_position(1);
-			Assert::IsTrue(c.control(c.ball_.get_position()) < 0);
+			Assert::IsTrue(c.control(c.beam_.get_angle()) < 0);
 		}
 
 		TEST_METHOD(Test_update) //testing function update()
