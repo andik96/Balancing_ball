@@ -10,7 +10,7 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/11         #
-#   Version: 2018/06/11 - V1.0  #
+#   Version: 2018/06/11 - V2.1  #
 ********************************/
 
 
@@ -111,7 +111,7 @@ Pid Pid_optimizer::get_optimum() const
 
 
 // ===============================================================
-// WATCH ERROR (to be able to compare the affects of differen P, I and D values)
+// WATCH ERROR (to be able to compare the affects of different P, I and D values)
 
 double Pid_optimizer::watch_error(Controller& my_controller) const
 {
@@ -119,7 +119,24 @@ double Pid_optimizer::watch_error(Controller& my_controller) const
 	double max_error = 0;
 	double sum_error = 0;
 
-	for (elapsed time = 0; time < watch_time; time += time_elapsed)
+	static elapsed time_last_call = 0;
+
+
+	// =============== TIME MANAGEMENT ================
+
+#if _WIN32 || _WIN64										// WINDOWS
+	static auto act_time = my_controller.get_time();
+	auto time_passed = act_time - time_last_call;
+	time_last_call = act_time;
+#else														// RASPBERRY
+	auto time_passed = this->get_time() - time_last_call;
+	time_last_call = this->get_time();
+#endif
+
+
+	// =============== ERROR MANAGEMENT ================
+
+	for (elapsed time = 0; time < watch_time; time += time_passed)
 	{
 		current_error = my_controller.run();
 
@@ -128,6 +145,7 @@ double Pid_optimizer::watch_error(Controller& my_controller) const
 
 		sum_error += abs(current_error);
 	}
+
 
 	return sum_error / (max_error*watch_time);
 }

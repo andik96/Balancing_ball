@@ -1,15 +1,20 @@
 #pragma once
 
 #include "using_types.h"
+#include "Pid.h"
 #include "Ball.h"
 #include "Beam.h"
 
 class Controller
 {
 public:
-	Controller(Ball ball, Beam beam, double kp, double ki, double kd);
+	Controller(Ball& ball, Beam& beam, Pid pid_data);
 	double control(double position);
-	void update(double desired_angle);
+	// void update(double desired_angle);
+
+	double run();
+	elapsed get_time();
+
 	double get_kp() const;
 	void set_kp(double kp);
 	double get_ki() const;
@@ -21,9 +26,11 @@ public:
 	Beam beam_;
 
 private:
-	double kp_;
-	double ki_;
-	double kd_;
+	Pid pid_data_;
 	double desired_position_;
+
+#if _WIN32 || _WIN64
+	elapsed act_time_ = 0;
+#endif
 };
 
