@@ -10,7 +10,7 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/11         #
-#   Version: 2018/06/11 - V2.1  #
+#   Version: 2018/06/22 - V2.2  #
 ********************************/
 
 
@@ -47,7 +47,9 @@ void Pid_optimizer::run(Controller& my_controller, Optimizer& optimizer_data)
 		actual_pid_.kp += optimizer_data.kp_start / (2 ^ act_step);
 		my_controller.set_kp(actual_pid_.kp);
 
+		// ============ SIMULATION ============
 		actual_pid_.error = this->watch_error(my_controller);
+		// ====================================
 
 		if (actual_pid_.error < optimal_pid_.error)
 		{
@@ -67,7 +69,9 @@ void Pid_optimizer::run(Controller& my_controller, Optimizer& optimizer_data)
 		actual_pid_.ki += optimizer_data.ki_start / (2 ^ act_step);
 		my_controller.set_ki(actual_pid_.ki);
 
+		// ============ SIMULATION ============
 		actual_pid_.error = this->watch_error(my_controller);
+		// ====================================
 
 		if (actual_pid_.error < optimal_pid_.error)
 		{
@@ -87,7 +91,9 @@ void Pid_optimizer::run(Controller& my_controller, Optimizer& optimizer_data)
 		actual_pid_.kd += optimizer_data.kd_start / (2 ^ act_step);
 		my_controller.set_kd(actual_pid_.kd);
 
+		// ============ SIMULATION ============
 		actual_pid_.error = this->watch_error(my_controller);
+		// ====================================
 
 		if (actual_pid_.error < optimal_pid_.error)
 		{
@@ -135,6 +141,8 @@ double Pid_optimizer::watch_error(Controller& my_controller) const
 
 
 	// =============== ERROR MANAGEMENT ================
+
+	my_controller.ball_.push(Push::left, 0.7);
 
 	for (elapsed time = 0; time < watch_time; time += time_passed)
 	{
