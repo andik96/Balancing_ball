@@ -18,6 +18,7 @@
 // ===============================================================
 // INCLUDES
 
+#include "Pid.h"
 #include "Controller.h"
 #include "using_types.h"
 
@@ -29,16 +30,7 @@ constexpr elapsed watch_time = 10000;		// how long the optimizer shall test ever
 
 
 // ===============================================================
-// PID STRUCT
-
-struct Pid
-{
-	double kp = 1;
-	double ki = 0;
-	double kd = 0;
-
-	double error = 0;
-};
+// OPTIMIZER STRUCT
 
 struct Optimizer
 {
@@ -59,15 +51,18 @@ struct Optimizer
 class Pid_optimizer
 {
 public:
-	void run(Controller& my_controller, Optimizer& optimizer_data);
-	// ------------ ------------ ------------
-	Pid get_optimum() const;
+	Pid get_optimum(Optimizer& optimizer_data);
 
 private:
-	double watch_error(Controller& my_controller) const;
+	void run(Optimizer& optimizer_data);
+	// ------------ ------------ ------------
+	double watch_error(Controller& controller) const;
+	// ------------ ------------ ------------
+	void try_kp(Controller& controller, Pid& actual_pid, Optimizer& optimizer_data, steps act_step);
+	void try_ki(Controller& controller, Pid& actual_pid, Optimizer& optimizer_data, steps act_step);
+	void try_kd(Controller& controller, Pid& actual_pid, Optimizer& optimizer_data, steps act_step);
 	// ============ ============ ============
 	Pid actual_pid_;
 	Pid optimal_pid_;
-
 };
 

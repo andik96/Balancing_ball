@@ -30,6 +30,9 @@
     <ClInclude Include="Pid_optimizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp">

@@ -22,6 +22,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Beam.h" />
+    <ClInclude Include="Pid.h" />
     <ClInclude Include="Pid_optimizer.h" />
     <ClInclude Include="using_types.h" />
   </ItemGroup>
