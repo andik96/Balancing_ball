@@ -7,8 +7,8 @@ constexpr elapsed simulated_time = 1000;			// for windows
 
 
 
-Controller::Controller(Ball& ball, Beam& beam, Pid pid_data) : 
-ball_{ ball }, beam_{ beam }, pid_data_(pid_data), desired_position_{ 0 }
+Controller::Controller(Ball& ball, Beam& beam, Pid& pid_data) : 
+ball_{ ball }, beam_{ beam }, pid_data_{pid_data}
 {
 }
 

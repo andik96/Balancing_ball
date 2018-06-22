@@ -28,51 +28,64 @@ namespace TestController
 	TEST_CLASS(Controller_test)
 	{
 	public:
-		/*TEST_METHOD(Test_construction)
+
+		TEST_METHOD(Test_control_clockwise) //testing function control()
 		{
 			Ball ball;
 			Beam beam;
-			Controller c(ball, beam, 1, 2, 3);
-			Assert::AreEqual(ball, c.ball_);
-			Assert::AreEqual(beam, c.beam_);
-		}*/
+			Pid pid_data;
+			Controller c(ball, beam, pid_data);
 
-		TEST_METHOD(Test_control_calc) //testing function control() by calculation, assuming that elapsed time is 1000 ms
-		{
-			Ball ball;
-			Beam beam(2, 0, 0);
-			Controller c(ball, beam, 1, 2, 3);
-
-			c.ball_.set_position(-1);
-			Assert::AreEqual(6.0, c.control(c.ball_.get_position()));
-		}
-
-		TEST_METHOD(Test_control) //testing function control()
-		{
-			Ball ball;
-			Beam beam(2,0,0);
-			Controller c(ball, beam, 1, 2, 3);
-
-			c.ball_.set_position(-1);
-			Assert::IsTrue(c.control(c.ball_.get_position()) > 0);
-		}
-
-		TEST_METHOD(Test_update) //testing function update()
-		{
-			Ball ball;
-			Beam beam(2, 0, 0);
-			Controller c(ball, beam, 1, 2, 3);
-			
-			//beam tilted to the right
-			c.update(20);
-			Assert::IsTrue(c.ball_.get_velocity() > 0);
-
-			//beam tilted to the left
+			// controller has to turn beam clockwise (angle > 0)
+			c.ball_.set_position(-0.1);
 			c.ball_.set_velocity(0);
-			c.ball_.set_position(0);
-			c.update(-20);
-			Assert::IsTrue(c.ball_.get_velocity() < 0);
+			double desired_angle = c.control(c.ball_.get_position());
+			Assert::IsTrue(desired_angle > static_cast<double>(0));
+		}
 
+		TEST_METHOD(Test_control_counterclockwise) //testing function control()
+		{
+			Ball ball;
+			Beam beam;
+			Pid pid_data;
+			Controller c(ball, beam, pid_data);
+
+			// controller has to turn beam counterclockwise (angle < 0)
+			c.ball_.set_position(0.2);
+			c.ball_.set_velocity(0);
+			double desired_angle = c.control(c.ball_.get_position());
+			Assert::IsTrue(desired_angle < static_cast<double>(0));
+		}
+
+
+		TEST_METHOD(Test_run__ball_left_side) //testing function run()
+		{
+			Ball ball;
+			Beam beam;
+			Pid pid_data;
+			Controller controller(ball, beam, pid_data);
+
+			
+			// beam tilted to the right
+			controller.ball_.set_position(-0.5);
+			controller.ball_.set_velocity(0);
+			controller.run();
+			Assert::IsTrue(controller.ball_.get_velocity() > 0);
+		}
+
+
+		TEST_METHOD(Test_run__ball_right_side) //testing function run()
+		{
+			Ball ball;
+			Beam beam;
+			Pid pid_data;
+			Controller controller(ball, beam, pid_data);
+
+			// beam tilted to the left
+			controller.ball_.set_position(0.5);
+			controller.ball_.set_velocity(0);
+			controller.run();
+			Assert::IsTrue(controller.ball_.get_velocity() < 0);
 		}
 	};
 }
