@@ -10,7 +10,7 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/11         #
-#   Version: 2018/06/11 - V1.0  #
+#   Version: 2018/06/21 - V2.1  #
 ********************************/
 
 #pragma once
