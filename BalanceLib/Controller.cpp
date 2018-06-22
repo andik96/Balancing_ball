@@ -67,15 +67,13 @@ void Controller::update(double desired_angle)
 
 double Controller::run(void)
 {
-	static elapsed time_last_call = 0;
-
 
 	// =============== TIME MANAGEMENT ================
 
-#if _WIN32 || _WIN64										// WINDOWS
+#if _WIN32 || _WIN64		// WINDOWS
 	this->act_time_ = this->get_time();
-	auto time_passed = this->act_time_ - time_last_call;
-	time_last_call = this->act_time_;
+	const auto time_passed = this->act_time_ - time_last_call_;
+	time_last_call_ = this->act_time_;
 #else														// RASPBERRY
 	auto time_passed = this->get_time() - time_last_call;
 	time_last_call = this->get_time();

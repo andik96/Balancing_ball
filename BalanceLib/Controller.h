@@ -28,6 +28,8 @@ public:
 private:
 	Pid pid_data_;
 	const double desired_position_ = 0;
+	elapsed time_last_call_ = 0;
+
 
 #if _WIN32 || _WIN64
 	elapsed act_time_ = 0;
