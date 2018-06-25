@@ -20,6 +20,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../BalanceLib/Controller.h"
+#include <chrono>
+#include <thread>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -44,7 +46,7 @@ namespace TestController
 			Controller c(ball, beam, 1, 2, 3);
 
 			c.ball_.set_position(-1);
-			Assert::AreEqual(6.0, c.control(c.ball_.get_position()));
+			Assert::AreEqual(21.3, c.control(c.ball_.get_position(),c.get_time()));
 		}
 
 		TEST_METHOD(Test_control) //testing function control()
@@ -54,7 +56,7 @@ namespace TestController
 			Controller c(ball, beam, 1, 2, 3);
 
 			c.ball_.set_position(-1);
-			Assert::IsTrue(c.control(c.ball_.get_position()) > 0);
+			Assert::IsTrue(c.control(c.ball_.get_position(), c.get_time()) > 0);
 		}
 
 		TEST_METHOD(Test_update) //testing function update()
@@ -64,14 +66,30 @@ namespace TestController
 			Controller c(ball, beam, 1, 2, 3);
 			
 			//beam tilted to the right
-			c.update(20);
-			Assert::IsTrue(c.ball_.get_velocity() > 0);
+			c.update(20,c.get_time());
+			//Assert::IsTrue(c.ball_.get_velocity() > 0);
 
 			//beam tilted to the left
 			c.ball_.set_velocity(0);
 			c.ball_.set_position(0);
-			c.update(-20);
-			Assert::IsTrue(c.ball_.get_velocity() < 0);
+			c.update(-20,c.get_time());
+			//Assert::IsTrue(c.ball_.get_velocity() < 0);
+
+		}
+
+		TEST_METHOD(get_time) //testing timing function
+		{
+			Ball ball;
+			Beam beam(2, 0, 0);
+			Controller c(ball, beam, 1, 2, 3);
+			
+			elapsed demo = 10;
+			elapsed first = c.get_time();
+			using namespace std::this_thread; // sleep_for, sleep_until
+			using namespace std::chrono; // nanoseconds, system_clock, seconds
+			sleep_for(milliseconds(10));
+			Assert::AreEqual(c.get_time()-first,demo);
+
 
 		}
 	};
