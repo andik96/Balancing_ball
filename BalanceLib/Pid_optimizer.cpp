@@ -10,7 +10,7 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/11         #
-#   Version: 2018/06/22 - V2.2  #
+#   Version: 2018/06/25 - V2.3  #
 ********************************/
 
 
@@ -19,6 +19,8 @@
 
 #include "Pid_optimizer.h"
 #include "Controller.h"
+#include "Ball.h"
+#include "Beam.h"
 
 
 // #################################### SECTION BREAK ####################################
@@ -28,10 +30,10 @@
 // GET OPTIMUM (get stored optimum without running optimizer again)
 // ===============================================================
 
-Pid Pid_optimizer::get_optimum(Optimizer& optimizer_data)
+Pid Pid_optimizer::get_optimum(Opt_param& opt_param)
 {
 	// ============ RUN OPTIMIZER ==============
-	this->run(optimizer_data);
+	this->run(opt_param);
 	// =========================================
 
 	return this->optimal_pid_;
@@ -47,26 +49,26 @@ Pid Pid_optimizer::get_optimum(Optimizer& optimizer_data)
 // RUN OPTIMIZER
 // ===============================================================
 
-void Pid_optimizer::run(Optimizer& optimizer_data)
+void Pid_optimizer::run(Opt_param& opt_param)
 {
 	Ball ball;
 	Beam beam;
-	Controller controller{ ball, beam, optimizer_data.kp_start, optimizer_data.ki_start, optimizer_data.kd_start };
+	Controller controller{ ball, beam, opt_param.kp_start, opt_param.ki_start, opt_param.kd_start };
 
 
 	// ======= INITIALIZE P, I, D =========
-	actual_pid_.kp = optimizer_data.kp_start;
-	actual_pid_.ki = optimizer_data.ki_start;
-	actual_pid_.kd = optimizer_data.kd_start;
+	actual_pid_.kp = opt_param.kp_start;
+	actual_pid_.ki = opt_param.ki_start;
+	actual_pid_.kd = opt_param.kd_start;
 	// ====================================
 
 
-	for (steps act_step = 0; act_step < optimizer_data.k_steps; act_step++)
+	for (steps act_step = 0; act_step < opt_param.k_steps; act_step++)
 	{
 		// ========= TRY DIFFERENT P, I, D =========
-		this->try_kp(controller, this->actual_pid_, optimizer_data, act_step);
-		this->try_ki(controller, this->actual_pid_, optimizer_data, act_step);
-		this->try_kd(controller, this->actual_pid_, optimizer_data, act_step);
+		this->try_kp(controller, this->actual_pid_, opt_param, act_step);
+		this->try_ki(controller, this->actual_pid_, opt_param, act_step);
+		this->try_kd(controller, this->actual_pid_, opt_param, act_step);
 		// =========================================
 
 
@@ -87,9 +89,9 @@ void Pid_optimizer::run(Optimizer& optimizer_data)
 // TRY ANOTHER KP
 // ===============================================================
 
-void Pid_optimizer::try_kp(Controller& controller, Pid & actual_pid, Optimizer & optimizer_data, steps act_step)
+void Pid_optimizer::try_kp(Controller& controller, Pid & actual_pid, Opt_param & opt_param, steps act_step)
 {
-	actual_pid_.kp += optimizer_data.kp_start / (2 ^ act_step);
+	actual_pid_.kp += opt_param.kp_start / (2 ^ act_step);
 	controller.set_kp(actual_pid_.kp);
 
 
@@ -105,7 +107,7 @@ void Pid_optimizer::try_kp(Controller& controller, Pid & actual_pid, Optimizer &
 		optimal_pid_.error = actual_pid_.error;
 	}
 	else
-		actual_pid_.kp -= optimizer_data.kp_start / (2 ^ act_step);
+		actual_pid_.kp -= opt_param.kp_start / (2 ^ act_step);
 	// =========================================
 
 
@@ -117,9 +119,9 @@ void Pid_optimizer::try_kp(Controller& controller, Pid & actual_pid, Optimizer &
 // TRY ANOTHER KI
 // ===============================================================
 
-void Pid_optimizer::try_ki(Controller& controller, Pid & actual_pid, Optimizer & optimizer_data, steps act_step)
+void Pid_optimizer::try_ki(Controller& controller, Pid & actual_pid, Opt_param & opt_param, steps act_step)
 {
-	actual_pid_.ki += optimizer_data.ki_start / (2 ^ act_step);
+	actual_pid_.ki += opt_param.ki_start / (2 ^ act_step);
 	controller.set_ki(actual_pid_.ki);
 
 
@@ -135,7 +137,7 @@ void Pid_optimizer::try_ki(Controller& controller, Pid & actual_pid, Optimizer &
 		optimal_pid_.error = actual_pid_.error;
 	}
 	else
-		actual_pid_.ki -= optimizer_data.ki_start / (2 ^ act_step);
+		actual_pid_.ki -= opt_param.ki_start / (2 ^ act_step);
 	// =========================================
 
 
@@ -147,9 +149,9 @@ void Pid_optimizer::try_ki(Controller& controller, Pid & actual_pid, Optimizer &
 // TRY ANOTHER KD
 // ===============================================================
 
-void Pid_optimizer::try_kd(Controller & controller, Pid & actual_pid, Optimizer & optimizer_data, steps act_step)
+void Pid_optimizer::try_kd(Controller & controller, Pid & actual_pid, Opt_param & opt_param, steps act_step)
 {
-	actual_pid_.kd += optimizer_data.kd_start / (2 ^ act_step);
+	actual_pid_.kd += opt_param.kd_start / (2 ^ act_step);
 	controller.set_kd(actual_pid_.kd);
 
 
@@ -165,7 +167,7 @@ void Pid_optimizer::try_kd(Controller & controller, Pid & actual_pid, Optimizer 
 		optimal_pid_.error = actual_pid_.error;
 	}
 	else
-		actual_pid_.kd -= optimizer_data.kd_start / (2 ^ act_step);
+		actual_pid_.kd -= opt_param.kd_start / (2 ^ act_step);
 	// =========================================
 
 
@@ -200,7 +202,7 @@ double Pid_optimizer::watch_error(Controller& controller) const
 
 
 		// =========== ERROR MANAGEMENT ============
-		current_error = controller.run();
+		current_error = controller.control(controller.ball.get_position());
 
 		if (current_error > max_error)
 			max_error = current_error;
