@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include <chrono>
+#include "Clock.h"
 
 
 Controller::Controller(Ball ball, Beam beam, double kp, double ki, double kd) : ball_{ ball }, beam_{ beam }, kp_{ kp }, ki_{ ki }, kd_{ kd }
@@ -24,10 +25,12 @@ double Controller::control(double position, elapsed current_time)
 	return desired_angle;
 }
 
-void Controller::update(double desired_angle, elapsed current_time)  
+void Controller::update(double desired_angle)  //elapsed current_time
 {
-	static elapsed previous_time = current_time -10;	//ohne static funktionierts
-	elapsed time_passed = current_time - previous_time;	
+	//TODO: delete: static elapsed previous_time = current_time -10;	//ohne static funktionierts
+	//TODO: delete: elapsed time_passed = current_time - previous_time;	
+	elapsed previous_time = clock_.timestamp_update_;
+	elapsed time_passed = clock_.get_time() - previous_time;
 
 	beam_.set_angle(desired_angle, time_passed);
 
@@ -35,7 +38,9 @@ void Controller::update(double desired_angle, elapsed current_time)
 	static constexpr double pi = 3.14159265;
 	double velocity_calc = g * sin(beam_.get_angle()*pi/180) * time_passed;  //in m/ms
 	ball_.set_velocity(velocity_calc + ball_.get_velocity());
-	previous_time = current_time;
+	
+	//TODO: delete: previous_time = current_time;
+	clock_.timestamp_update_ = clock_.get_time();
 }
 
 double Controller::get_kp() const
@@ -68,14 +73,15 @@ void Controller::set_kd(double kd)
 	kd_ = kd;
 }
 
-elapsed Controller::get_time()
-{
-	elapsed time;
-#if _WIN32 || _WIN64
-	auto now = std::chrono::system_clock::now().time_since_epoch();
-	time = std::chrono::duration_cast<std::chrono::milliseconds>(now).count();
-#else 
-	time = millis();
-#endif
-	return time;
-}
+ //Controller::get_time() const
+//{
+//	elapsed time;
+//	#if _WIN32 || _WIN64
+//		auto now = std::chrono::system_clock::now().time_since_epoch();
+//		time = std::chrono::duration_cast<std::chrono::milliseconds>(now).count();
+//	#else 
+//		time = millis();
+//	#endif
+//
+//		return time;
+//}
