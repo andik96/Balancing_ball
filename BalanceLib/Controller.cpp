@@ -1,39 +1,43 @@
 #include "Controller.h"
+#include <chrono>
+#include "Clock.h"
+#include <iostream>
 
-
-Controller::Controller(Ball ball, Beam beam, double kp, double ki, double kd) : ball_{ ball }, beam_{ beam }, kp_{ kp }, ki_{ ki }, kd_{ kd }, desired_position_{ 0 }
+Controller::Controller(Ball ball, Beam beam, double kp, double ki, double kd) : ball_{ ball }, beam_{ beam }, kp_{ kp }, ki_{ ki }, kd_{ kd }
 {
 }
 
 double Controller::control(double position)
 {
-	static constexpr elapsed simulated_time = 1000;
-
-	elapsed time_passed = simulated_time;
+	elapsed previous_time = clock_.timestamp_control_;
+	elapsed time_passed = clock_.get_time() - previous_time;
+	
 	static double e_sum = 0;
 	static double e_old = 0;
 
 	double e = desired_position_ - position;
 	e_sum = e_sum + e;
 
-	double desired_angle = kp_ * e + ki_ * time_passed/1000 * e_sum + kd_ * (e - e_old) / (time_passed/1000);
+	double desired_angle = kp_ * e + ki_ * time_passed * e_sum + kd_ * (e - e_old) / time_passed;
 	e_old = e;
 
+	clock_.timestamp_control_ = clock_.get_time();
 	return desired_angle;
 }
 
-void Controller::update(double desired_angle)  
+void Controller::update(double desired_angle)
 {
-	static constexpr elapsed simulated_time = 1000;
-
-	elapsed time_passed = simulated_time;
-
+	elapsed previous_time = clock_.timestamp_update_;
+	elapsed time_passed = clock_.get_time() - previous_time;
+	
 	beam_.set_angle(desired_angle, time_passed);
 
 	static constexpr double g = 9.80665;
 	static constexpr double pi = 3.14159265;
-	double velocity_calc = g * sin(beam_.get_angle()*pi/180) * time_passed/1000;  //in m/s
+	double velocity_calc = g * sin(beam_.get_angle()*pi/180) * time_passed;  //in m/ms
 	ball_.set_velocity(velocity_calc + ball_.get_velocity());
+	
+	clock_.timestamp_update_ = clock_.get_time();
 }
 
 double Controller::get_kp() const
@@ -65,3 +69,4 @@ void Controller::set_kd(double kd)
 {
 	kd_ = kd;
 }
+

@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Clock.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Beam.h" />
     <ClInclude Include="using_types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Beam.cpp" />
   </ItemGroup>

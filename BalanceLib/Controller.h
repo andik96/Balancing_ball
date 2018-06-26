@@ -3,6 +3,7 @@
 #include "using_types.h"
 #include "Ball.h"
 #include "Beam.h"
+#include "Clock.h"
 
 class Controller
 {
@@ -19,11 +20,12 @@ public:
 
 	Ball ball_;
 	Beam beam_;
+	Clock clock_;
 
 private:
 	double kp_;
 	double ki_;
 	double kd_;
-	double desired_position_;
+	double desired_position_ = 0;
 };
 
