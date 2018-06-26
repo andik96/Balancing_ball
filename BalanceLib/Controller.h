@@ -9,7 +9,7 @@ class Controller
 {
 public:
 	Controller(Ball ball, Beam beam, double kp, double ki, double kd);
-	double control(double position, elapsed current_time);
+	double control(double position);
 	void update(double desired_angle);
 	double get_kp() const;
 	void set_kp(double kp);
@@ -17,7 +17,6 @@ public:
 	void set_ki(double ki);
 	double get_kd() const;
 	void set_kd(double kd);
-	//elapsed get_time() const;
 
 	Ball ball_;
 	Beam beam_;
