@@ -10,7 +10,7 @@
 #       WINKLER  Andreas        #
 #                               #
 #   created: 2018/06/11         #
-#   Version: 2018/06/25 - V2.3  #
+#   Version: 2018/06/26 - V2.4  #
 ********************************/
 
 
@@ -188,21 +188,21 @@ double Pid_optimizer::watch_error(Controller& controller) const
 	double max_error = 0;
 	double sum_error = 0;
 
-	elapsed last_call = controller.get_time();
+	elapsed last_call = controller.clock_.get_time();
 	elapsed time_passed = 0;
 
 
 	for (elapsed time = 0; time < watch_time; time += time_passed)
 	{
 		// ============ TIME MANAGEMENT ============
-		time_passed = controller.get_time() - last_call;
+		time_passed = controller.clock_.get_time() - last_call;
 		last_call += time_passed;
 		// =========================================
 
 
 
 		// =========== ERROR MANAGEMENT ============
-		current_error = controller.control(controller.ball.get_position());
+		current_error = controller.control(controller.ball_.get_position());
 
 		if (current_error > max_error)
 			max_error = current_error;
