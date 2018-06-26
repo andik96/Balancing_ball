@@ -22,7 +22,7 @@
 
 
 // ===============================================================
-// INCLUDES
+// CONSTANT EXPRESSIONS
 
 constexpr double max_ang_velocity = double(45)/1000;		// maximum agular velocity in degrees per millisecond (/1000: milliseconds->seconds)
 constexpr double max_angle = 22.5;							// maximum angle in degrees

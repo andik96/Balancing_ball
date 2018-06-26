@@ -1,7 +1,7 @@
 
 /********************************
 #   Balancing Ball              #
-#   using_types.h               #
+#   Pid.h                       #
 #                               #
 #   Authors:                    #
 #       KEMPERLE Andreas        #
@@ -9,22 +9,21 @@
 #       SOUKUP   Jakob          #
 #       WINKLER  Andreas        #
 #                               #
-#   created: 2018/06/06         #
-#   Version: 2018/06/06 - V1.0  #
+#   created: 2018/06/21         #
+#   Version: 2018/06/21 - V1.0  #
 ********************************/
 
 #pragma once
 
 
 // ===============================================================
-// INCLUDES
+// PID STRUCT
 
-#include <chrono>
+struct Pid
+{
+	double kp = 1;
+	double ki = 0;
+	double kd = 0;
 
-
-// ===============================================================
-// TYPE DECLARATION
-
-using elapsed = uint_fast64_t;
-
-using steps = uint_fast16_t;
+	double error = 0;
+};

@@ -328,4 +328,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+!BalanceUI/bin
 /Klassendiagramme_alt.pdf
